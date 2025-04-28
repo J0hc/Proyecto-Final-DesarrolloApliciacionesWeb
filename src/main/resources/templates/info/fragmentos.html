@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla_1 :: head}">
+        <title>CoFFeLife</title>
+    </head>
+    <body>
+
+        <!-- Quienes somos -->
+        <section th:fragment="quienesSomos" class="d-block m-auto" style="max-width: 75vw">
+            <h2 class="text-center">¿Quiénes somos?</h2>
+            <p>Somos una cafetería artesanal ubicada en el corazón de la región de Los Santos, donde honramos la rica tradición cafetalera de Costa Rica. Nuestro objetivo es ofrecer a nuestros clientes una experiencia auténtica, con café de alta calidad cultivado localmente, acompañado de deliciosos postres y bocadillos caseros.</p>
+            <p>Trabajamos directamente con productores locales para garantizar que cada taza esté llena de sabor y compromiso con la sostenibilidad. Cada detalle de nuestra cafetería busca celebrar la cultura y la naturaleza de esta hermosa región.</p>
+        </section>
+
+        <!-- Preguntas Y Respuestas -->
+        <section th:fragment="preguntasYRespuestas" class="d-block m-auto" style="max-width: 75vw">
+            <h2 class="text-center">Preguntas frecuentes</h2>
+            <ul>
+                <li><strong>¿De dónde proviene el café que sirven?</strong><br>Todos nuestros granos son cultivados y seleccionados en fincas locales de la región de Los Santos.</li>
+                <li><strong>¿Ofrecen opciones para personas con restricciones alimentarias?</strong><br>¡Sí! Tenemos opciones veganas, sin gluten y sin lactosa en nuestro menú.</li>
+                <li><strong>¿Puedo organizar eventos en su cafetería?</strong><br>Por supuesto, contamos con un espacio acogedor perfecto para reuniones, talleres y eventos especiales. Contáctanos para más detalles.</li>
+            </ul>
+        </section>
+
+        <!-- Dónde estamos -->
+        <section th:fragment="dondeEstamos" class="d-block m-auto" style="max-width: 75vw">
+            <h2 class="text-center">¿Dónde estamos?</h2>
+            <p>Nos encontramos en el pintoresco pueblo de San Marcos, en la región de Los Santos, rodeados de paisajes montañosos y cafetales. Nuestra dirección exacta es:</p>
+            <address>
+                Calle Principal, Frente a la Plaza de Deportes,<br>
+                    San Marcos, Los Santos,<br>
+                        San José, Costa Rica.
+                        </address>
+                        <p>¡Ven a visitarnos y disfruta del aroma y sabor único de nuestro café artesanal!</p>
+        </section>
+        
+
+    </body>
+</html>
+
+

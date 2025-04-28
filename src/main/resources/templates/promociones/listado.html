@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla_1 :: head}">
+        <title>CoFFeLife</title>
+    </head>
+    <body>
+        <header th:replace="~{layout/headerLogin :: header}"></header>
+        <h1 class="text-center mt-5 mb-5">Promociones</h1>
+        <section th:replace="~{promociones/fragmentos :: botonesAgregar}"></section>
+        <section th:replace="~{promociones/fragmentos :: listadoPromociones}"></section>
+        <section th:replace="~{promociones/fragmentos :: mostrarPromocion}"></section>
+        <footer th:replace="~{layout/plantilla_1 :: footer}"></footer>
+    </body>
+</html>

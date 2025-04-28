@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security">
+    <head th:replace="~{layout/plantilla_1 :: head}">
+        <title>CoFFeLife</title>
+    </head>
+    <body>
+        <header th:replace="~{layout/headerLogin :: header}"/>
+
+        <h1 style="color: #024e02" class="text-center mt-5 mb-5">NUESTROS PRODUCTOS</h1>
+
+        <section class="container">
+            <a class="btn back-btn" th:href="@{/}">
+                <i class="fa fa-arrow-left"></i> Volver
+            </a>
+        </section>
+
+        <section th:replace="~{carrito/fragmentos :: listadoProductos}"/>
+
+        <footer th:replace="~{layout/plantilla_1 :: footer}"/>
+
+    </body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="head">
+        <title>CoFFeLife</title>
+        <meta charset="UTF-8"/>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>6
+        <link rel='stylesheet' th:href="@{/css/styless.css}"/>
+        <script th:src="@{/js/rutinas.js}"></script>
+    </head>
+    <body>
+        <!--COMIENZA-->
+
+        <!-- COMPONENTE #2 - HERO IMAGEN -->
+        <div th:fragment="heroImagen" class="container-hero" style="position: relative; background-image: url('../img/cafe.jpg'); background-size: cover; background-position: center;">
+            <div class="wrap">
+                <div class="box">
+                    <h1>¿Un café?</h1>
+                    <p>"☕ DONDE CADA TAZA CUENTA UNA HISTORIA. VEN, DESPIERTA TUS SENTIDOS CON AROMA Y SABOR INOLVIDABLES ☕"</p>
+                    <div class="botones">
+                        <a th:href="@{/carrito/mostrar}" class="btn2">¡QUIERO UN CAFÉ!</a>					
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- COMPONENTE #3 - GALERIA -->
+        <section th:fragment="galeria" class="gallery-section">
+            <div class="container">
+                <h1>GALERÍA</h1>
+                <p class="mb-4 text-center">
+                    Explora momentos únicos: sumérgete en nuestra galería y descubre las imágenes que cuentan nuestra historia. cada detalle captura la esencia de lo que somos, desde los momentos más especiales hasta la belleza en cada rincón. ¡vive la magia a través de cada fotografía y deja que te inspiren!</p>
+                <div class="row g-4">
+                    <div class="col-md-4" th:each="img : ${ultimasImagenes}">
+                        <img th:src="@{${img.url}}" class="gallery-img img-fluid rounded" th:alt="${img.url}" />
+
+                    </div>
+                </div>
+                <div class="botones mt-3">
+                    <a th:href="@{/galeria/mostrar}" class="btn2">VER MÁS</a>					
+                </div>
+        </section>
+
+        <!-- COMPONENTE #4 - PRODUCTOS -->
+
+        <section th:fragment="paquetes" class="packets-section">
+            <div class="container">
+                <h1>PRODUCTOS</h1>
+                <p class="text-dark">
+                    Descubre nuestra selección exclusiva: explora cada producto diseñado para sorprenderte. cada detalle refleja nuestra pasión por la calidad y la creatividad, ofreciéndote más que objetos, experiencias únicas. ¡conoce lo que tenemos preparado para ti!</p>
+                <div class="row row-cols-1 row-cols-md-3" th:if="${ultimosProductos != null and !ultimosProductos.empty}">
+                    <div class="col mb-4" th:each="producto : ${ultimosProductos}">
+                        <div class="card" style="border-radius: 10px; box-shadow: 0 4px 8px var(--sombra);">
+                            <div class="card-body">
+                                <!-- Título y descripción del producto -->
+                                <h5 class="card-title" style="color: var(--verde-principal); font-size: 1.2em;">[[${producto.descripcion}]]</h5>
+
+                                <!-- Imagen del producto -->
+                                <figure>
+                                    <img th:src="@{${producto.rutaImagen}}" alt="Imagen de [[${producto.descripcion}]]" class="img-fluid rounded" style="max-height: 200px; object-fit: cover;"/>
+                                    <figcaption style="color: var(--verde-principal);">
+                                        [[${producto.precio}+' ('+${producto.existencias}+')']]
+                                    </figcaption>
+                                </figure>
+
+                                <!-- Botón para agregar al carrito -->
+                                <form>
+                                    <input type="hidden" name="texto" th:value="${producto.idProducto}"/>
+                                    <input type="hidden" name="texto" th:value="${producto.existencias}"/>
+                                    <button class="btn btn-verde-claro" onclick="addCart(this.form)" type="button" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                                        <i class="fas fa-cart-plus"></i> [[#{producto.agregar}]]
+                                    </button>
+                                </form>
+
+                                <!-- Detalle del producto -->
+                                <p class="card-text" style="font-size: 0.9em;">[[${producto.detalle}]]</p>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="botones">
+                    <a th:href="@{/carrito/mostrar}" class="btn2">VER MÁS</a>					
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPONENTE #5 - Shortcut -->
+
+        <section th:fragment="shortcut">
+            <div class="container-hero" style="background-image: url('../img/cafe_5.jpg'); background-size: cover; background-position: center; position: relative;">
+                <div class="text-center">
+                    <h1>"¡ÚNETE A LA EXPERIENCIA!"</h1>
+                    <p>"📲¡DESCUBRE UNA NUEVA EXPERIENCIA! REGÍSTRATE EN NUESTRA APP Y DISFRUTA DE PROMOCIONES EXCLUSIVAS, RECOMPENSAS Y MUCHO MÁS. TU CAFÉ FAVORITO, AHORA A UN TOQUE DE DISTANCIA. ☕"</p>
+                    <div>
+                        
+                        <a th:href="@{/registro/nuevo}" class="btn2">¡UNIRSE!</a>					
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMPONENTE #6 - FOOTER -->
+
+        <footer th:fragment="footer" style="background-color: #024e02;" class=" text-center text-lg-start text-white">
+            <!-- Grid container -->
+            <div class="container p-4">
+                <div class="row mt-4">
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Sobre nosotros</h5>
+
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a th:href="@{/info/quienesSomos}" class="text-white">Quiénes somos</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/info/preguntasYRespuestas}" class="text-white">F&A</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/info/dondeEstamos}" class="text-white">Dónde estamos</a>
+                            </li>
+                        </ul>
+                    </div>
+                   <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Mi cuenta</h5>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#!" class="text-white">Consultar</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="text-white">Eliminar</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Otros</h5>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <a th:href="@{/}" class="text-white">Inicio</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/contacto/contacto}" class="text-white">Contacto</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/galeria/mostrar}" class="text-white">Galeria</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/promociones/listado}" class="text-white">Promociones</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/carrito/mostrar}" class="text-white">Productos</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Compras</h5>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#!" class="text-white">Mis compras</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="text-white">Historial</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+                © 2024 Copyright:
+                <a class="text-white" href="https://mdbootstrap.com/">CoFFeLife.com</a>
+            </div>
+           
+        </footer>
+
+        <!-- COMPONENTE #7 - REDIRIGIR A CONTACTO -->
+
+        <section th:fragment="btn">
+            <div class="text-center">
+                <h1 class="h1 mt-5">CONTÁCTANOS</h1>
+                <h4 class="h4-form">¡Nos encantará escucharte!</h4>
+                <button class="btn-contacto"><a style="text-decoration: none; color:white" th:href="@{/contacto/contacto}"/>CONTACTAR</button>
+            </div>  
+        </section>
+
+    </body>  
+</html>

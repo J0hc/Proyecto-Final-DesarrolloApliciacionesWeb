@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla_1 :: head}">
+        <title>CoFFeLife</title>
+    </head>
+    <body>
+
+        <section th:fragment="descuentosTabla" class="container mt-5">
+            <h2 class="text-center">Descuentos Activos</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Descuento</th>
+                        <th>Tiempo restante</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="descuento : ${descuentos}">
+                        <td th:text="${descuento.producto.descripcion}">Nombre Producto</td>
+                        <td th:text="${descuento.porcentaje + '%'}">%</td>
+                        <td th:text="${descuento.tiempoRestante}">Tiempo</td>
+                        <td>
+                            <form th:action="@{'/descuentos/eliminar/' + ${descuento.id}}" method="post">
+                                <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        
+        <section th:fragment="botonesAgregar">
+            <button class="btn btn-primary ml-5" data-bs-toggle="modal" data-bs-target="#modalAgregarDescuento">
+                Agregar Descuento
+            </button>
+        </section>
+
+
+        <section th:fragment="modalAgregarDescuento">
+    <div class="modal fade" id="modalAgregarDescuento" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Agregar Descuento</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <form th:action="@{/descuentos/guardar}" th:object="${descuento}" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label>Producto</label>
+                            <select class="form-select" th:field="*{producto.idProducto}">
+                                <option th:each="prod : ${productos}" th:value="${prod.idProducto}" th:text="${prod.descripcion}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>Porcentaje de descuento (%)</label>
+                            <input type="number" class="form-control" th:field="*{porcentaje}" min="1" max="100" required />
+                        </div>
+                        <div class="mb-3">
+                            <label>Fecha fin</label>
+                            <input type="datetime-local" class="form-control" th:field="*{fechaFin}" required />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit">Aplicar Descuento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </body>
+</html>
+
+

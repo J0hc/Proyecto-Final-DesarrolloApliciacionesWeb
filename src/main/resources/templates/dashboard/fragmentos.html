@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla_1 :: head}">
+        <title>CoFFeLife</title>
+    </head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <body>
+
+        <div class="d-flex" id="wrapper">
+           <div class="bg-dark border-end text-white" id="sidebar-wrapper">
+                <div class="sidebar-heading text-center py-4 fw-bold fs-4">TechShop</div>
+                <div class="list-group list-group-flush">
+                    <a href="#generales" class="list-group-item list-group-item-action bg-dark text-white">Dashboard</a>
+                    <a href="#ultimos" class="list-group-item list-group-item-action bg-dark text-white">Últimos Registros</a>
+                    <a href="#alertasYPendientes" class="list-group-item list-group-item-action bg-dark text-white">Alertas</a>
+                    <a href="#mensajes" class="list-group-item list-group-item-action bg-dark text-white">Mensajes</a>
+                </div>
+            </div>
+
+            div id="page-content-wrapper">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom px-4">
+                    <button class="btn btn-outline-secondary" id="menu-toggle">☰</button>
+                    <span class="navbar-brand ms-3">Panel de Administración</span>
+                </nav>
+
+                <div class="container-fluid p-4">
+
+                   <section id="ultimos" class="mt-5" th:fragment="ultimos">
+                        <h3 class="mb-4">Últimos Registros</h3>
+                        <div class="row">
+                            <h5>Usuarios</h5>
+                            <div class="col-md-4" th:each="usuario : ${ultimosUsuarios}">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex align-items-center">
+                                        <i class="bi bi-person-circle fs-1 text-primary me-3"></i>
+                                        <div>
+                                            <h5 class="card-title" th:text="${usuario.nombre}"></h5>
+                                            <p class="text-muted" th:text="${usuario.correo}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="mt-4">Productos</h5>
+                            <div class="col-md-4" th:each="producto : ${ultimosProductos}">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex align-items-center">
+                                        <i class="bi bi-box-seam fs-1 text-success me-3"></i>
+                                        <div>
+                                            <h5 th:text="${producto.descripcion}"></h5>
+                                            <p class="text-muted" th:text="${producto.precio}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="mt-4">Categorías</h5>
+                            <div class="col-md-4" th:each="categoria : ${ultimasCategorias}">
+                                <div class="card h-100">
+                                    <div class="card-body d-flex align-items-center">
+                                        <i class="bi bi-tags-fill fs-1 text-warning me-3"></i>
+                                        <div>
+                                            <h5 th:text="${categoria.descripcion}"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="alertasYPendientes" class="mt-5" th:fragment="alertasYPendientes">
+                        <h3 class="mb-4">Alertas y Pendientes</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card border-danger">
+                                    <div class="card-header bg-danger text-white">Productos con bajo stock</div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item" th:each="producto : ${productosBajoStock}">
+                                            <strong th:text="${producto.descripcion}"></strong> - 
+                                            <span th:text="'Stock: ' + ${producto.existencias}"></span>
+                                        </li>
+                                        <li class="list-group-item" th:if="${productosBajoStock.size() == 0}">
+                                            Todos los productos tienen suficiente stock.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="card border-warning">
+                                    <div class="card-header bg-warning text-dark">Categorías sin productos</div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item" th:each="categoria : ${categoriasSinProductos}">
+                                            <strong th:text="${categoria.descripcion}"></strong>
+                                        </li>
+                                        <li class="list-group-item" th:if="${categoriasSinProductos.size() == 0}">
+                                            Todas las categorías tienen productos asignados.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section th:fragment="mensajes" class="container mt-5 mb-5">
+                        <h2 class="text-center mb-4">Mensajes Sin Responder</h2>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped align-middle shadow-sm">
+                                <thead class="table-dark text-center">
+                                    <tr>
+                                        <th scope="col">Nombre y Correo</th>
+                                        <th scope="col">Mensaje</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:if="${#lists.isEmpty(mensajes)}">
+                                        <td colspan="3" class="text-center">No hay mensajes.</td>
+                                    </tr>
+
+                                    <tr th:each="mensaje : ${mensajes}">
+                                        <td>
+                                            <strong th:text="${mensaje.nombre}">Nombre</strong><br/>
+                                            <small class="text-muted" th:text="${mensaje.email}">correo@ejemplo.com</small>
+                                        </td>
+                                        <td th:text="${mensaje.mensaje}">Contenido del mensaje</td>
+
+                                        <td class="text-center" sec:authorize="hasRole('ROLE_ADMIN')">
+                                            <a th:href="@{/contacto/eliminar/}+${mensaje.id}" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i> Eliminar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section th:fragment="graficos" class="container mt-5 mb-5">
+                        <h2 class="text-center mb-4">Estadísticas Generales</h2>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <div class="card shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="text-center">Usuarios</h5>
+                                        <canvas id="usuariosChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-4">
+                                <div class="card shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="text-center">Categorías</h5>
+                                        <canvas id="categoriasChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 mb-4">
+                                <div class="card shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="text-center">Productos</h5>
+                                        <canvas id="productosChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                        <script th:inline="javascript">
+                            const totalUsuarios = [[${totalUsuariosSimple}]];
+                            const totalCategorias = [[${totalCategoriasSimple}]];
+                            const totalProductos = [[${totalProductosSimple}]];
+
+                            function generaColores(cantidad) {
+                                const colores = [];
+                                for (let i = 0; i < cantidad; i++) {
+                                    const r = Math.floor(Math.random() * 120 + 115);
+                                    const g = Math.floor(Math.random() * 120 + 115);
+                                    const b = Math.floor(Math.random() * 120 + 115);
+                                    colores.push(`rgba(${r}, ${g}, ${b}, 0.7)`);
+                                }
+                                return colores;
+                            }
+
+                            document.addEventListener('DOMContentLoaded', () => {
+                                new Chart(document.getElementById('usuariosChart'), {
+                                    type: 'line',
+                                    data: {
+                                        labels: ['Usuarios'],
+                                        datasets: [{
+                                                label: 'Usuarios registrados',
+                                                data: [totalUsuarios],
+                                                borderColor: 'rgba(54, 162, 235, 1)',
+                                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                                borderWidth: 2,
+                                                tension: 0.4,
+                                                fill: true
+                                            }]
+                                    },
+                                    options: {
+                                        scales: {y: {beginAtZero: true}},
+                                        plugins: {legend: {display: false}}
+                                    }
+                                });
+
+                                const categoriasInfo = Array.from({length: totalCategorias}, () => 1); // valor fijo para cada categoría
+                                const categoriasEtiq = Array.from({length: totalCategorias}, (_, i) => `Categoría ${i + 1}`);
+                                const categoriasColores = generaColores(totalCategorias);
+
+                                new Chart(document.getElementById('categoriasChart'), {
+                                    type: 'doughnut',
+                                    data: {
+                                        labels: categoriasEtiq,
+                                        datasets: [{
+                                                label: 'Categorías',
+                                                data: categoriasInfo,
+                                                backgroundColor: categoriasColores,
+                                                borderColor: categoriasColores.map(c => c.replace('0.7', '1')),
+                                                borderWidth: 1
+                                            }]
+                                    },
+                                    options: {
+                                        plugins: {legend: {position: 'bottom'}}
+                                    }
+                                });
+
+                                new Chart(document.getElementById('productosChart'), {
+                                    type: 'bar',
+                                    data: {
+                                        labels: ['Productos'],
+                                        datasets: [{
+                                                label: 'Cantidad de productos',
+                                                data: [totalProductos],
+                                                backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                                                borderColor: 'rgba(75, 192, 192, 1)',
+                                                borderWidth: 1
+                                            }]
+                                    },
+                                    options: {
+                                        indexAxis: 'y',
+                                        scales: {x: {beginAtZero: true}},
+                                        plugins: {legend: {display: false}}
+                                    }
+                                });
+                            });
+                        </script>
+
+                    </section>
+            </div>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById("menu-toggle").addEventListener("click", function () {
+                document.getElementById("wrapper").classList.toggle("toggled");
+            });
+        </script>
+
+        <style>
+            #wrapper.toggled #sidebar-wrapper {
+                margin-left: -250px;
+            }
+            #sidebar-wrapper {
+                width: 250px;
+                min-height: 100vh;
+            }
+            #page-content-wrapper {
+                flex: 1;
+            }
+        </style>
+
+    </body>
+</html>
