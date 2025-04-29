@@ -8,10 +8,10 @@
         <version>3.4.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.Tienda</groupId>
-    <artifactId>Tienda_SC-403</artifactId>
+    <groupId>com.CoffeLife</groupId>
+    <artifactId>CoffeLife</artifactId>
     <version>1</version>
-    <name>Tienda_SC-403</name>
+    <name>CoffeLife</name>
     <description>Proyecto de Tienda para curso</description>
     <url/>
     <licenses>
@@ -31,8 +31,6 @@
         <maven.compiler.release>17</maven.compiler.release>
     </properties>
     <dependencies>
-        
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -70,6 +68,30 @@
             <version>6.5.2</version>
         </dependency>
         <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-functions</artifactId>
+            <version>7.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>7.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>7.0.2</version>
+        </dependency>
+        <!-- ✅ Dependencia faltante para exportar a PDF -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-pdf</artifactId>
+            <version>7.0.2</version>
+        </dependency>
+
+
+        
+        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
             <version>3.7.1</version>
@@ -101,19 +123,21 @@
             <artifactId>firebase-admin</artifactId>
             <version>9.4.3</version>
         </dependency>
-        
         <dependency>
-            <groupId>com.paypal.sdk</groupId>
-            <artifactId>paypal-core</artifactId>
-            <version>1.7.2</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity6</artifactId>
         </dependency>
         
-        <dependency>
-            <groupId>com.paypal.sdk</groupId>
-            <artifactId>rest-api-sdk</artifactId>
-            <version>1.14.0</version>
-        </dependency>
         
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+      
     </dependencies>
 
     <build>
@@ -128,6 +152,8 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <mainClass>com.CoffeLife.CoffeLifeApplication</mainClass>
+                    <start-class>com.CoffeLife.CoffeLifeApplication</start-class>
                 </configuration>
             </plugin>
             <plugin>
@@ -142,5 +168,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
