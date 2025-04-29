@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>CoFFeLife</title>
+    </head>
+    <body>
+
+        <!-- 1 Sección para crear seccion de login y crear cuenta...-->
+        <div th:fragment="crearCuenta" class="container container_cuenta">
+            <div class="row shadow-lg rounded">
+                <!-- Columna izquierda (Login) -->
+                <div class="col-md-4 left-column divider">
+                    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Icono Cuenta" class="icono-cuenta"/>
+                    <h4>Iniciar Sesión</h4>
+                    <form >
+                        <div class="mb-3 text-start">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" placeholder="Ingrese su nombre"/>
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label class="form-label">Email</label>
+                            <input type="email"class="form-control" placeholder="Ingrese su correo"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+                    </form>
+                </div>
+
+                <!-- Columna derecha (Registro) -->
+                <div class="col-md-7 right-column">
+                    <div class="title-center">
+                        <h4>¿No tienes cuenta?</h4>
+                        <p class="text-muted">Crea una</p>
+                    </div>
+                    <form th:action="@{/cuentaUsuario/guardar}" th:object="${cuentaUsuario}"
+                          method="POST" class="was-validated" enctype="multipart/form-data">
+                        <div class="row">
+                            <!-- Nombre -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="nombre">Nombre</label>
+                                <input type="text" class="form-control" placeholder="Ingrese su nombre" th:field="*{nombre}" />
+                            </div>
+
+                            <!-- Cédula -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="cedula">Cédula</label>
+                                <input type="text" class="form-control" placeholder="Ingrese su cédula" th:field="*{cedula}" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Apellido -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="apellido">Apellido</label>
+                                <input type="text" class="form-control" placeholder="Ingrese su apellido" th:field="*{apellido}" />
+                            </div>
+
+                            <!-- Correo -->
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="correo">Correo</label>
+                                <input type="email" class="form-control" placeholder="Ingrese su correo" th:field="*{correo}" />
+                            </div>
+                        </div>
+
+                        <!-- Cargar Imagen -->
+                        <div class="mb-3">
+                            <label class="form-label" for="imagenFile">Foto de Perfil</label>
+                            <input type="file" class="form-control" accept="image/*" th:field="*{imagenFile}" name="imagenFile" onchange="readURL(this);"/>
+                            <img id="blah" src="#" alt="your image" height="200"/>
+                        </div>
+
+                        <!-- Activo (Checkbox) -->
+                        <div class="mb-3">
+                            <label for="activo">Activo</label>
+                            <input class="form-check-input" type="checkbox" th:field="*{activo}" />
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">Crear Cuenta</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

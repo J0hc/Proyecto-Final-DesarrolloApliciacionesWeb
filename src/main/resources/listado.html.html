@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>CoffeLife</title>
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"></header>
+        <section th:replace="~{reserva/fragmentos :: botonesAgregar}"></section>
+        <section th:replace="~{reserva/fragmentos :: agregarReserva}"></section>
+        <section th:replace="~{reserva/fragmentos :: listadoReservas}"></section>
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
+    </body>
+</html>

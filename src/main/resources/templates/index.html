@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
       xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="~{layout/plantilla_1 :: head}">
-        <title>CoFFeLife</title>
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShop</title>
     </head>
     <body>
-        <header th:replace="~{layout/headerLogin :: header}"></header>
+        <header th:replace="~{layout/plantilla :: header}"></header>
         
-        <section th:replace="~{layout/plantilla_1 :: heroImagen}"></section>
+        <section th:replace="~{layout/plantilla :: heroImagen}"></section>
         
-        <section th:replace="~{layout/plantilla_1 :: galeria}"></section>
+        <section th:replace="~{layout/plantilla :: galeria}"></section>
         
-        <section th:replace="~{layout/plantilla_1 :: paquetes}"></section>
+        <section th:replace="~{layout/plantilla :: paquetes}"></section>
       
-        <section th:replace="~{layout/plantilla_1 :: shortcut}"></section>
+        <section th:replace="~{layout/plantilla :: shortcut}"></section>
         
-        <section th:replace="~{layout/plantilla_1 :: btn}"></section>
-
-        <footer th:replace="~{layout/plantilla_1 :: footer}"></footer>
+        <section th:replace="~{layout/plantilla :: btn}"></section>
+        
+        
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>
    </body>
 </html>
