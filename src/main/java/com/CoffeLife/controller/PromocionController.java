@@ -5,6 +5,7 @@ import com.CoffeLife.domain.producto;
 import com.CoffeLife.service.FirebaseStorageService;
 import com.CoffeLife.service.ProductoService;
 import com.CoffeLife.service.PromocionService;
+import jakarta.persistence.Column;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/promociones")
 public class PromocionController {
-
+    
     @Autowired
     private PromocionService promocionService;
 

@@ -20,7 +20,7 @@ public class Promocion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Long idPromocion;
 
    
     @ManyToMany(fetch = FetchType.EAGER) 
@@ -47,11 +47,11 @@ public class Promocion {
     }
 
     public Long getId() {
-        return id;
+        return idPromocion;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.idPromocion = id;
     }
 
     public String getNombre() {
@@ -85,6 +85,4 @@ public class Promocion {
     public void setProductos(List<producto> productos) {
         this.productos = productos;
     }
-   
-
 }

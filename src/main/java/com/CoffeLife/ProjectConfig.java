@@ -79,7 +79,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                         "/", "/index", "/errores/**",
                         "/pruebas/**", "/registro/**", "/js/**", "/webjars/**", "/img/**", "/css/**",
                         "/carrito/**", "/galeria/mostrar", "/info/**",
-                        "/contacto/contacto", "/contacto/gracias", "/promociones/promocionesUser"
+                        "/contacto/contacto", "/contacto/gracias", "/contacto/enviarContacto", "/promociones/promocionesUser"
                 ).permitAll()
                 
                         .requestMatchers(
@@ -92,7 +92,7 @@ public class ProjectConfig implements WebMvcConfigurer {
                 ).hasAnyRole("ADMIN", "VENDEDOR")
                  .requestMatchers(
                         "/producto/**", "/categoria/**", "/usuario/**", "/reportes/**",
-                        "/galeria/listado", "/galeria/eliminar/**",
+                        "/galeria/listado", "galeria/guardar","/galeria/eliminar/**",
                         "/contacto/eliminar/**", "/dashboard/dashboardAdmin",
                         "/descuentos/**", "/descuentos/eliminar**/",
                         "/promociones/listado", "/promociones/guardar", "/promociones/eliminar/**"
